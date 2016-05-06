@@ -4,7 +4,8 @@ CREATE TABLE PILOTS(
 	Pilot_Name VARCHAR(100) NOT NULL,
 	Pilot_CTF VARCHAR(100) NOT NULL,
         Pilot_Available VARCHAR(1) NOT NULL,
-        PIMARY KEY (Pilot_ID)
+        PRIMARY KEY (Pilot_ID)
+        
 );
 
 CREATE TABLE AIRCRAFT(
@@ -13,7 +14,7 @@ CREATE TABLE AIRCRAFT(
 	Aircraft_Type VARCHAR(100) NOT NULL,
         Aircraft_CTF VARCHAR(100) NOT NULL,
         Aircraft_Available BOOLEAN NOT NULL,
-        PIMARY KEY (Aircraft_ID)
+        PRIMARY KEY (Aircraft_ID)
 );
 
 CREATE TABLE PILOT_AIRCRAFT(
@@ -22,6 +23,8 @@ CREATE TABLE PILOT_AIRCRAFT(
 	Aircraft_ID INT NOT NULL,
         Pilot_Currency BOOLEAN NOT NULL,
         PIMARY KEY (Pilot_Aircraft_ID)
+        FOREIGN KEY (Pilot_ID) REFERENCES PILOTS(Pilot_ID)
+        FOREIGN KEY (Aircraft_ID) REFERENCES AIRCRAFT(Aircraft_ID)
 );
 
 CREATE TABLE MISSIONS(
@@ -31,7 +34,7 @@ CREATE TABLE MISSIONS(
         Mission_Priority INT NOT NULL,
         Mission_Date DATE,
         Mission_Status VARCHAR(1) NOT NULL,
-        PIMARY KEY (Mission_ID)
+        PRIMARY KEY (Mission_ID)
 );
 
 CREATE TABLE MISSIONS_RESOURCES(
@@ -39,5 +42,8 @@ CREATE TABLE MISSIONS_RESOURCES(
         Mission_ID INT NOT NULL,
 	Pilot_ID INT NOT NULL,
 	Aircraft_ID INT NOT NULL,
-        PIMARY KEY (Mission_Resources_ID)
+        PRIMARY KEY (Mission_Resources_ID)
+        FOREIGN KEY (Mission_ID) REFERENCES MISSIONS(Mission_ID)
+        FOREIGN KEY (Pilot_ID) REFERENCES PILOTS(Pilot_ID)
+        FOREIGN KEY (Aircraft_ID) REFERENCES AIRCRAFT(Aircraft_ID)
 );
